@@ -1,8 +1,8 @@
 .container {
     display: flex;
-    margin-top: 40px;
     border-radius: 10px;
-    background-color: rgba(202, 203, 207, 0.65)
+    background-color: rgba(202, 203, 207, 0.30);
+    padding: 20px;
 
 }
 
@@ -17,4 +17,6 @@
 
 .hidden {
     visibility: hidden;
+}
+.itemInfo {
 }

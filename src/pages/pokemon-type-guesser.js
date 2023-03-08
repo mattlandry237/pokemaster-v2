@@ -1,9 +1,12 @@
 import TypeChip from "../components/typechip/typechip.js";
 import GameScore from "../components/gameScore/gameScore.js"
 import Pokemon from "../components/pokemon/pokemon.js"
-import Button from "@mui/material/Button"
 import Container from "@mui/material/Container"
-import { orderedTypes, getPokemon, generateNewPokemon } from "../utils/helpers.js";
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import Paper from "@mui/material/Paper"
+import Button from "@mui/material/Button"
+import { orderedTypes, getPokemon } from "../utils/helpers.js";
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import styles from "../styles/pokemon-type-guesser.module.css"
@@ -104,7 +107,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
             }))
         }else {
             if(roundState.selectedTypes.length < 2){  
-                let newRoundState = {"selectedTypes": [...roundState.selectedTypes, type]}              
+                let newRoundState = {"selectedTypes": [...roundState.selectedTypes, type]}
                 setRoundState(roundState => ({
                     ...roundState,
                     ...newRoundState
@@ -112,22 +115,48 @@ const PokemonTypeGuesser = ({ pokemon }) => {
             }
         }
     }
+
+
+
     if(gameMode != "end"){
         return (
             <Container maxWidth="xl">
-                <Pokemon pokemon={roundState.pokemon} hidden={gameMode == "play"} />
-                <GameScore currentRound={gameState.length + 1} score={totalPoints}></GameScore>
-                <div className={styles.container}>
-                    {orderedTypes.map((type) => 
-                    <div onClick={() => typeSelected(type)}>
-                        <TypeChip type={type} selected={roundState.selectedTypes.includes(type)} results={""} game={gameState} />
-                    </div>
-                    )}
-                </div>
-                { gameMode == "play"
-                ? <Button variant="contained" color="primary" onClick={() => submitAnswers()}>Submit</Button>
-                : <Button variant="container" color="secondary" onClick={() => {initNewRound()}}>Next Round</Button>
-                }
+                <Box sx={{ flexGrow: 1}}>
+                    <Grid container sx={{mt: '40px'}} justifyContent="center">
+
+                        <Grid container item  columnSpacing={6} xs={6}>
+                            <Grid item>
+                                <Pokemon pokemon={roundState.pokemon} hidden={gameMode == "play"} />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container item xs={2} justifyContent="flex-end">
+                            <Grid item>
+                                <GameScore currentRound={gameState.length + 1} score={totalPoints}></GameScore>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container item xs={8} sx={{mt: '30px', textAlign: 'center'}} rowSpacing={1} justifyContent="center">
+                            {orderedTypes.map((type) => 
+                                <Grid item sx={{m: "auto"}} xs={2} onClick={() => typeSelected(type)}>
+                                    <TypeChip sx={{m: 'auto'}} type={type} selected={roundState.selectedTypes.includes(type)} result={false} game={gameMode == "results" ? true : false} />
+                                </Grid>
+                            )}
+                        </Grid>
+
+                        <Grid container item sx={{mt: '30px'}} xs={8} justifyContent="flex-end">
+                            { gameMode == "play"
+                            ? <Button variant="contained" color="primary" onClick={() => submitAnswers()}>Submit</Button>
+                            : <Button variant="container" color="secondary" onClick={() => {initNewRound()}}>Next Round</Button>
+                            }
+                        </Grid>
+
+                    </Grid>
+                </Box>
+
+
+
+
             </Container>
         )
     }else {
@@ -145,3 +174,10 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 export default PokemonTypeGuesser;
 
 
+
+const test = {
+    primary: {type: "water", result: "true", water: true},
+    secondary: ""
+}
+
+console.log(test.primary.fire)

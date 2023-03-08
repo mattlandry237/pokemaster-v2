@@ -1,11 +1,11 @@
-
+import styles from './gameScore.module.css'
 
 const GameScore = ({ currentRound, score }) => {
     return (
-        <>
-            <h1>{`Round: ${currentRound}`}</h1>
-            <h1>{`Score: ${score}`}</h1>
-        </>
+        <div className={styles.gameScoreCard}>
+            <h1 className={styles.text}>{`Round: ${currentRound}`}</h1>
+            <h1 className={styles.text}>{`Score: ${score}`}</h1>
+        </div>
 
     )
 }

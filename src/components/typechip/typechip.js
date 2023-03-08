@@ -1,14 +1,9 @@
 import Image from 'next/image'
 import styles from './typechip.module.css'
 
-const TypeChip = ({ type, selected, results, game }) => {
+const TypeChip = ({ type, selected }) => {
     return (
-        <Image className={game 
-            ? selected ? styles.selectedType 
-                       : styles.type 
-            : selected ? results ? styles.correctAnswer 
-                                 : styles.wrongAnswer  
-                       : styles.type } 
+        <Image className={selected ? styles.selectedType : styles.type } 
         width={150} height={30} src={`/types/${type}.png`} alt={`Type: ${type}`} />
     )
 }
