@@ -1,0 +1,16 @@
+.type{
+    position: relative;
+    opacity: .8;
+}
+
+.selectedType{
+    position: relative;
+}
+
+.correctAnswer {
+    border: green 3px solid;
+}
+
+.wrongAnswer{
+    border: red 3px solid;
+}
