@@ -7,10 +7,28 @@
     position: relative;
 }
 
-.correctAnswer {
-    border: green 3px solid;
+.type, .selectedType {
+    cursor: pointer;
 }
 
-.wrongAnswer{
-    border: red 3px solid;
+.selected{
+    border: 2px pink solid;
+}
+
+.notSelected{
+    position: relative;
+    opacity: .8;
+
+}
+
+.correctSelected{
+    border: 2px green solid;
+}
+
+.wrongSelected{
+    border: 2px red solid
+}
+
+.correctNotSelected{
+    border: 2px purple solid;
 }

@@ -2,9 +2,9 @@ import TypeChip from "../components/typechip/typechip.js";
 import GameScore from "../components/gameScore/gameScore.js"
 import Pokemon from "../components/pokemon/pokemon.js"
 import Container from "@mui/material/Container"
+import Image from "next/image"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
 import Button from "@mui/material/Button"
 import { orderedTypes, getPokemon } from "../utils/helpers.js";
 import { useState, useEffect } from 'react'
@@ -43,7 +43,6 @@ const initRoundState = {
     points: 0
 }
 
-
 // Main Component
 const PokemonTypeGuesser = ({ pokemon }) => {
     
@@ -54,8 +53,6 @@ const PokemonTypeGuesser = ({ pokemon }) => {
     const [totalPoints, setTotalPoints] = useState(0)
     
     useEffect(() => {
-        console.log(gameState)
-
     }, [gameState])
     
     const initNewRound = () => {
@@ -74,8 +71,32 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
     const submitAnswers = () => {
             checkSubmittedTypes()
+            getTypeResultsStyles()
             setGameMode("results")
     }
+
+    const getTypeResultsStyles = (type) => {
+
+        if(gameMode == "play"){
+            if(roundState.selectedTypes.includes(type))
+                return "selected"
+            else
+                return "notSelected"
+
+        }else if(gameMode == "results"){
+            if(roundState.selectedTypes.includes(type)){
+                if(roundState.pokemon.primaryType == type || roundState.pokemon.secondaryType == type){
+                    return "correctSelected"
+                }else{
+                    return "wrongSelected"
+                }
+            }else if(roundState.pokemon.primaryType == type || roundState.pokemon.secondaryType == type){
+                    return "correctNotSelected"
+                }
+            }else {
+                return "notSelected"
+            }
+        }
 
 
     const checkSubmittedTypes = () => {
@@ -99,27 +120,30 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
     // Updates state variable 'selectedTypes' to add or remove user selected types
     const typeSelected = (type) => {
-        if(roundState.selectedTypes.includes(type)){
-            const arr = roundState.selectedTypes.filter(selectedType => selectedType !== type)
-            setRoundState(roundState => ({
-                ...roundState,
-                ...{"selectedTypes": arr}
-            }))
-        }else {
-            if(roundState.selectedTypes.length < 2){  
-                let newRoundState = {"selectedTypes": [...roundState.selectedTypes, type]}
+        if(gameMode == "play"){
+            if(roundState.selectedTypes.includes(type)){
+                const arr = roundState.selectedTypes.filter(selectedType => selectedType !== type)
                 setRoundState(roundState => ({
                     ...roundState,
-                    ...newRoundState
+                    ...{"selectedTypes": arr}
                 }))
+            }else {
+                if(roundState.selectedTypes.length < 2){  
+                    let newRoundState = {"selectedTypes": [...roundState.selectedTypes, type]}
+                    setRoundState(roundState => ({
+                        ...roundState,
+                        ...newRoundState
+                    }))
+                }
             }
         }
     }
 
 
-
     if(gameMode != "end"){
         return (
+            <>            
+            <Image className={styles.backgroundImg} fill src={'/poke_landscape.jpg'} /> 
             <Container maxWidth="xl">
                 <Box sx={{ flexGrow: 1}}>
                     <Grid container sx={{mt: '40px'}} justifyContent="center">
@@ -136,28 +160,27 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                             </Grid>
                         </Grid>
 
-                        <Grid container item xs={8} sx={{mt: '30px', textAlign: 'center'}} rowSpacing={1} justifyContent="center">
-                            {orderedTypes.map((type) => 
-                                <Grid item sx={{m: "auto"}} xs={2} onClick={() => typeSelected(type)}>
-                                    <TypeChip sx={{m: 'auto'}} type={type} selected={roundState.selectedTypes.includes(type)} result={false} game={gameMode == "results" ? true : false} />
-                                </Grid>
-                            )}
+                        <Grid container item xs={8} sx={{mt: '30px', textAlign: 'center'}} className={styles.typesContainer} rowSpacing={1} justifyContent="center">
+                                {orderedTypes.map((type) => 
+                                    <Grid item sx={{m: "auto"}} xs={2} onClick={() => typeSelected(type)}>
+                                        <TypeChip sx={{m: 'auto'}} type={type} highlight={getTypeResultsStyles(type)} />
+                                    </Grid>
+                                )}
+
                         </Grid>
 
                         <Grid container item sx={{mt: '30px'}} xs={8} justifyContent="flex-end">
                             { gameMode == "play"
                             ? <Button variant="contained" color="primary" onClick={() => submitAnswers()}>Submit</Button>
-                            : <Button variant="container" color="secondary" onClick={() => {initNewRound()}}>Next Round</Button>
+                            : <Button variant="contained" color="primary" onClick={() => {initNewRound()}}>Next Round</Button>
                             }
                         </Grid>
 
                     </Grid>
                 </Box>
-
-
-
-
             </Container>
+            </>
+
         )
     }else {
         return (
@@ -168,16 +191,6 @@ const PokemonTypeGuesser = ({ pokemon }) => {
             </>
         )
     }
-
 }
 
 export default PokemonTypeGuesser;
-
-
-
-const test = {
-    primary: {type: "water", result: "true", water: true},
-    secondary: ""
-}
-
-console.log(test.primary.fire)
