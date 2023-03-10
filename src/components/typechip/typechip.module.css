@@ -1,6 +1,6 @@
 .type{
     position: relative;
-    opacity: .8;
+    /* opacity: .8; */
 }
 
 .selectedType{
@@ -17,7 +17,7 @@
 
 .notSelected{
     position: relative;
-    opacity: .8;
+    /* opacity: .8; */
 
 }
 

@@ -5,6 +5,13 @@
 
 .typesContainer {
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 20px;
+    min-width: 270px;
+}
+
+.test {
+    outline: 2px black solid;
+    max-width: 500px;
+    height: auto;
 }

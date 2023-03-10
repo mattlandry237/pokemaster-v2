@@ -1,4 +1,5 @@
 import TypeChip from "../components/typechip/typechip.js";
+import TypeCard from "../components/typecard/typecard.js";
 import GameScore from "../components/gameScore/gameScore.js"
 import Pokemon from "../components/pokemon/pokemon.js"
 import Container from "@mui/material/Container"
@@ -6,7 +7,8 @@ import Image from "next/image"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
-import { orderedTypes, getPokemon } from "../utils/helpers.js";
+import { getPokemon } from "../utils/helpers.js";
+import { typeData } from "../utils/typesInfo.js";
 import { useState, useEffect } from 'react'
 import Router from 'next/router'
 import styles from "../styles/pokemon-type-guesser.module.css"
@@ -53,6 +55,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
     const [totalPoints, setTotalPoints] = useState(0)
     
     useEffect(() => {
+        console.log(gameState)
     }, [gameState])
     
     const initNewRound = () => {
@@ -76,7 +79,6 @@ const PokemonTypeGuesser = ({ pokemon }) => {
     }
 
     const getTypeResultsStyles = (type) => {
-
         if(gameMode == "play"){
             if(roundState.selectedTypes.includes(type))
                 return "selected"
@@ -96,7 +98,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
             }else {
                 return "notSelected"
             }
-        }
+    }
 
 
     const checkSubmittedTypes = () => {
@@ -143,9 +145,8 @@ const PokemonTypeGuesser = ({ pokemon }) => {
     if(gameMode != "end"){
         return (
             <>            
-            <Image className={styles.backgroundImg} fill src={'/poke_landscape.jpg'} /> 
-            <Container maxWidth="xl">
-                <Box sx={{ flexGrow: 1}}>
+            <Image className={styles.backgroundImg} fill src={'/background.jpg'} /> 
+            <Container maxWidth="xl">               
                     <Grid container sx={{mt: '40px'}} justifyContent="center">
 
                         <Grid container item  columnSpacing={6} xs={6}>
@@ -160,10 +161,10 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                             </Grid>
                         </Grid>
 
-                        <Grid container item xs={8} sx={{mt: '30px', textAlign: 'center'}} className={styles.typesContainer} rowSpacing={1} justifyContent="center">
-                                {orderedTypes.map((type) => 
-                                    <Grid item sx={{m: "auto"}} xs={2} onClick={() => typeSelected(type)}>
-                                        <TypeChip sx={{m: 'auto'}} type={type} highlight={getTypeResultsStyles(type)} />
+                        <Grid container item xs={8} sx={{mt: '30px'}} className={styles.typesContainer} rowSpacing={1} align="center">
+                                {typeData.map(({name, primaryColor, secondaryColor}) => 
+                                    <Grid item sx={{m: "auto"}} xs={8} sm={6} md={4} xl={2} align="center" onClick={() => typeSelected(name)}>
+                                        <TypeCard type={name} primaryColor={primaryColor} secondaryColor={secondaryColor} highlight={getTypeResultsStyles(name)}></TypeCard>
                                     </Grid>
                                 )}
 
@@ -176,21 +177,30 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                             }
                         </Grid>
 
-                    </Grid>
-                </Box>
+                    </Grid>               
             </Container>
-            </>
-
-        )
-    }else {
-        return (
-            <>
-            <h1> Game Over</h1>
-            <h2>{`Score: ${totalPoints}`}</h2>
-            <Button variant="container" color="primary" onClick={() => {{Router.reload(window.location.pathname)}}}>Play Again</Button>
             </>
         )
     }
+    return (
+        <>
+        <Image className={styles.backgroundImg} fill src={'/background.jpg'} /> 
+        <Container maxWidth="xl">
+            <Grid container>
+                <Grid container item className={styles.test} direction="column">
+                    <h1> Game Over</h1>
+                    <h2>{`Score: ${totalPoints}`}</h2>
+                    <Button variant="contained" color="primary" href="/">Home</Button>
+                    <Button variant="contained" color="primary" onClick={() => {{Router.reload(window.location.pathname)}}}>Play Again</Button>
+                </Grid>
+
+
+            </Grid>
+
+        </Container>
+        </>
+    )
+
 }
 
 export default PokemonTypeGuesser;

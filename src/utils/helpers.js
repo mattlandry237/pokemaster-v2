@@ -13,7 +13,7 @@ const randomID = (max) => {
 
 
 const getPokemon = async () => {
-    let id = randomID(300);
+    let id = randomID(500);
     const response = await axios.get(`/pokemon/${id}`);
     
     let pokemon = {}

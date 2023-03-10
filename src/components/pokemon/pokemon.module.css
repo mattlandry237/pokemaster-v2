@@ -1,12 +1,14 @@
 .container {
     display: flex;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 20px;
     min-width: 600px;
 }
 
 .pokemonName {
+    text-transform: capitalize;
     font-family:  Helvetica, sans-serif;
     margin: 10px 0 10px 20px;
 }
