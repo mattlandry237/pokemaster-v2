@@ -4,13 +4,13 @@
     width: 150px;
     text-align: center;
     border-radius: 999px 300px 300px 999px;
-    cursor: pointer;
     user-select: none;
 }
 
 .glow {
 	transition-duration: .3s;
 	transition-property: box-shadow;
+    cursor: pointer;
 }
 
 .glow:hover {

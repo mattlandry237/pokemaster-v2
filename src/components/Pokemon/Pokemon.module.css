@@ -23,6 +23,7 @@
     font-family:  Helvetica, sans-serif;
     color: white;
     margin: 5px 0 5px 15px;
+    user-select: none;
 }
 
 
@@ -30,6 +31,11 @@
 .pokemonImgContainer{
     flex: 2;
     text-align: center;
+}
+
+.pokemonImg {
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 /* TypeCard Styling */

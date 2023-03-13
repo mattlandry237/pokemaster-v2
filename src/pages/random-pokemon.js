@@ -1,4 +1,4 @@
-import Pokemon from "../components/pokemon/pokemon.js";
+import Pokemon from "../components/Pokemon";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { getPokemon } from "../utils/helpers.js";
@@ -24,7 +24,7 @@ const RandomPokemon = ({ pokemon }) => {
 
     useEffect(() => {
         console.log(activePokemon)
-    },[activePokemon])
+    }, [activePokemon])
 
     return (
         <Container maxWidth="xl">
