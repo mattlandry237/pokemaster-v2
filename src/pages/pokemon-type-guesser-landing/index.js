@@ -1,13 +1,13 @@
-import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
-import Link from 'next/link'
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container'
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
+import Link from 'next/link'
 
 
 
@@ -29,7 +29,8 @@ const PokemonTypeGuesserLanding = () => {
                 <Grid container item justifyContent="center">
                     <p> Test your Pokemon knowledge with Pokemon Type Guesser. In this game you will be shown a randomly selected Pokemon. Selected up to 2 types that you believe the Pokemon to be.</p>
                 </Grid>
-                <Grid container item justifyContent="center" columnSpacing={2}>
+                <Grid container item justifyContent="center" alignItems="center" columnSpacing={2} style={{ minHeight: "50vh" }}>
+
                     <Grid item>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
@@ -45,8 +46,8 @@ const PokemonTypeGuesserLanding = () => {
                                 </Select>
                             </FormControl>
                         </Box>
-
                     </Grid>
+
                     <Grid item>
                         <Link style={{ textDecoration: 'none' }}
                             href={{
@@ -58,10 +59,10 @@ const PokemonTypeGuesserLanding = () => {
                             as={''}>
                             <Button variant="contained" color="primary"> Start Game </Button>
                         </Link>
-
                     </Grid>
-                </Grid>
 
+
+                </Grid>
             </Grid>
         </Container>
     )
