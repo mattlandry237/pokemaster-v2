@@ -103,7 +103,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                 <Grid container>
                     <Grid container item className={styles.test} direction="column">
                         <h1> Game Over</h1>
-                        <h2>{`Score: ${totalPoints}`}</h2>
+                        <h2>{`Score: ${score}`}</h2>
                         <Button variant="contained" color="primary" href="/">Home</Button>
                         <Button variant="contained" color="primary" onClick={() => { { Router.reload(window.location.pathname) } }}>Play Again</Button>
                     </Grid>
