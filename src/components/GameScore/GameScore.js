@@ -1,4 +1,4 @@
-import styles from './gameScore.module.css'
+import styles from './GameScore.module.css'
 
 const GameScore = ({ currentRound, score }) => {
     return (

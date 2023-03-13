@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { getPokemon } from "../utils/helpers.js";
 import Link from "next/link";
+import Container from "@mui/material/Container"
 
 export async function getServerSideProps() {
     const pokemon = await getPokemon();
@@ -26,7 +27,7 @@ const RandomPokemon = ({ pokemon }) => {
     },[activePokemon])
 
     return (
-        <div>
+        <Container maxWidth="xl">
             <Pokemon pokemon={activePokemon} />
             <Button
                 variant="contained"
@@ -39,7 +40,7 @@ const RandomPokemon = ({ pokemon }) => {
             <Button component={Link} href="/" variant="contained" color="primary">
                 Home
             </Button>
-        </div>
+        </Container>
     );
 }
 

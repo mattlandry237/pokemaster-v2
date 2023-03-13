@@ -34,11 +34,10 @@
 }
 
 
-
 /* Highlights */
 
 .selected{
-    outline: 2px pink solid;
+    outline: 3px yellow solid;
 }
 
 .notSelected{
@@ -48,13 +47,13 @@
 }
 
 .correctSelected{
-    border: 2px green solid;
+    outline: 4px rgb(64, 255, 0) solid;
 }
 
 .wrongSelected{
-    border: 2px red solid
+    outline: 4px red solid
 }
 
 .correctNotSelected{
-    border: 2px purple solid;
+    outline: 4px rgb(64, 255, 0) solid;
 }

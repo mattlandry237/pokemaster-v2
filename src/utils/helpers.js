@@ -1,17 +1,13 @@
 import axios from '../pages/api/pokeapi.js'
 
-const orderedTypes = ["normal", "fire", "water",
-                    "grass", "electric", "ice",
-                    "fighting", "poison", "ground",
-                    "flying", "psychic", "bug",
-                    "rock", "ghost", "dark",
-                    "dragon", "steel", "fairy"]
 
 const randomID = (max) => {
     return Math.floor(Math.random() * max) + 1
 }
 
 
+//
+//
 const getPokemon = async () => {
     let id = randomID(500);
     const response = await axios.get(`/pokemon/${id}`);
@@ -27,20 +23,24 @@ const getPokemon = async () => {
     return pokemon
 }
 
-const generateNewPokemon = async (setActivePokemon) => {
-    const newPokemon = await getPokemon();
-    setActivePokemon(newPokemon);
-};
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+//
+//
+const getType = async () => {
+    const id = randomID(18)
+    const response = await axios.get(`/type/${id}`);
+
+    const type = {}
+
+    type.name = response.data.name;
+    type.damage_relations = response.data.damage_relations
+
+    return type
 }
 
 
 
-const getType = () => {
-
-}
 
 
-export { getPokemon, generateNewPokemon, getType, capitalizeFirstLetter, orderedTypes }
+
+export { getPokemon,  getType }
