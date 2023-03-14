@@ -39,9 +39,8 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
 
     const initNewRound = async () => {
-        setGameState([...gameState, { "pokemon": activePokemon, "selectedTypes": selectedTypes }])
-
         if (gameState.length + 1 < gameLength) {
+            setGameState([...gameState, { "pokemon": activePokemon, "selectedTypes": selectedTypes }])
             const newPokemon = await getPokemon()
             setActivePokemon(newPokemon)
             setSelectedTypes([])
@@ -53,11 +52,12 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
     const endGame = (value) => {
         router.push({
-            pathname: "/test",
+            pathname: "/endgame-test",
             query: {
                 results: JSON.stringify(value)
-            }
-        })
+            },
+            asPath: "/endgame-test/results/"
+        }, { shallow: true })
 
     }
 

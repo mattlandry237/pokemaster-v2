@@ -8,18 +8,27 @@ const randomID = (max) => {
 
 //
 //
-const getPokemon = async () => {
+const getPokemon = async (currentPokemon) => {
     let id = randomID(500);
+    if (currentPokemon && currentPokemon.id == id) {
+        do {
+            id = randomID(500)
+
+        } while (currentPokemon.id == id)
+    }
+
+
     const response = await axios.get(`/pokemon/${id}`);
-    
+
     let pokemon = {}
+    pokemon.id = id
     pokemon.name = response.data.name
     pokemon.primaryType = response.data.types[0].type.name
-    if (response.data.types[1]){
+    if (response.data.types[1]) {
         pokemon.secondaryType = response.data.types[1].type.name
     }
     pokemon.sprite = response.data.sprites.other.home.front_default
-    
+
     return pokemon
 }
 
@@ -43,4 +52,4 @@ const getType = async () => {
 
 
 
-export { getPokemon,  getType }
+export { getPokemon, getType }
