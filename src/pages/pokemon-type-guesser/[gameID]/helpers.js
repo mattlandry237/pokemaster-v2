@@ -1,13 +1,3 @@
-const initRoundState = {
-    pokemon: {
-        name: "",
-        primaryType: "",
-        secondaryType: "",
-        sprite: ""
-    },
-    selectedTypes: []
-}
-
 
 const checkSubmittedTypes = (currentPokemon, selectedTypes, score, setScore) => {
     let currentRoundPoints = 0
@@ -32,7 +22,6 @@ const typeSelected = (gameMode, selectedTypes, type, setStateFunc) => {
     }
 }
 
-
 const getTypeResultsStyles = (type, selectedTypes, currentPokemon, gameMode) => {
     if (gameMode == "play") {
         if (selectedTypes.includes(type))
@@ -55,4 +44,4 @@ const getTypeResultsStyles = (type, selectedTypes, currentPokemon, gameMode) => 
     }
 }
 
-export { initRoundState, checkSubmittedTypes, typeSelected, getTypeResultsStyles }
+export { checkSubmittedTypes, typeSelected, getTypeResultsStyles }

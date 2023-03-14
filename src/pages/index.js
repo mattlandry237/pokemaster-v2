@@ -23,7 +23,7 @@ export default function Home() {
             </Grid>
 
             <Grid item xs={2}>
-              <Button variant="contained" component={Link} href="/pokemon-type-guesser-landing">Pokemon Guesser</Button>
+              <Button variant="contained" component={Link} href="/pokemon-type-guesser">Pokemon Guesser</Button>
             </Grid>
 
             <Grid item xs={2}>

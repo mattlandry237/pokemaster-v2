@@ -1,123 +1,71 @@
-import Button from "@mui/material/Button"
-import Container from "@mui/material/Container"
-import HomeIcon from '@mui/icons-material/Home'
-import Grid from "@mui/material/Grid"
-import Image from "next/image"
-import { useRouter } from 'next/router'
-import GameScore from "../../components/GameScore"
-import Pokemon from "../../components/Pokemon"
-import TypeGrid from '../../components/TypeGrid'
-import styles from "./PokemonTypeGuesser.module.css"
-
-import { getPokemon } from "../../utils/helpers.js";
-import { checkSubmittedTypes, typeSelected, getTypeResultsStyles } from "./helpers.js"
-import { useState } from 'react'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container'
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Link from 'next/link'
 
 
+const PokemonTypeGuesserLanding = () => {
 
-export async function getServerSideProps() {
-    const pokemon = await getPokemon();
-    return {
-        props: {
-            pokemon
-        }
+    const [numPokemon, setNumPokemon] = React.useState(10);
+
+    const handleChange = (event) => {
+        setNumPokemon(event.target.value);
     };
-}
 
-
-const PokemonTypeGuesser = ({ pokemon }) => {
-
-    // State Variables    
-    const [gameState, setGameState] = useState([])
-    const [selectedTypes, setSelectedTypes] = useState([])
-    const [activePokemon, setActivePokemon] = useState(pokemon)
-    const [gameMode, setGameMode] = useState("play")
-    const [score, setScore] = useState(0)
-
-    const router = useRouter();
-    const gameLength = router.query.numPokemon;
-
-
-    const initNewRound = async () => {
-        setGameState([...gameState, { "pokemon": activePokemon, "selectedTypes": selectedTypes }])
-
-        if (gameState.length + 1 < gameLength) {
-            const newPokemon = await getPokemon()
-            setActivePokemon(newPokemon)
-            setSelectedTypes([])
-            setGameMode("play")
-        } else {
-            setGameMode("end")
-        }
-    }
-
-    const endGame = (value) => {
-        router.push({
-            pathname: "/test",
-            query: {
-                results: JSON.stringify(value)
-            }
-        })
-
-    }
-
-    const submitAnswers = () => {
-        checkSubmittedTypes(activePokemon, selectedTypes, score, setScore)
-        setGameMode("results")
-    }
+    const rand_num = Math.floor(Math.random() * 2000) + 1
 
     return (
-        <>
-            <Image className={styles.backgroundImg} fill src={'/background.jpg'} />
-            <Container sx={{ position: "relative" }} maxWidth="xl">
-                <Button startIcon={<HomeIcon fontSize="large" />} href={'/'} style={{ position: 'absolute' }}></Button>
-
-
-                <Grid container style={{ display: `${gameMode == "end" ? "block" : "none"}` }} className={styles.endGameContainer} justifyContent="flex-end" alignItems="center">
-                    <Grid item>
-                        <h1>Game Over</h1>
-                        <h3>Click the button below to review your results</h3>
-                    </Grid>
-                    <Grid item>
-                        <Button variant="contained" color="primary" onClick={() => { endGame(gameState) }}>Review</Button>
-                    </Grid>
+        <Container maxWidth="xl" >
+            <Grid container sx={{ border: "2px black solid" }}>
+                <Grid container item justifyContent="center">
+                    <h1>Pokemon Type Guesser</h1>
                 </Grid>
+                <Grid container item justifyContent="center">
+                    <p> Test your Pokemon knowledge with Pokemon Type Guesser. In this game you will be shown a randomly selected Pokemon. Selected up to 2 types that you believe the Pokemon to be.</p>
+                </Grid>
+                <Grid container item justifyContent="center" alignItems="center" columnSpacing={2} style={{ minHeight: "50vh" }}>
 
-
-                <Grid container sx={{ mt: '40px' }} justifyContent="center">
-
-                    <Grid container item columnSpacing={6} xs={6}>
-                        <Grid item>
-                            <Pokemon pokemon={activePokemon} hidden={gameMode == "play"} />
-                        </Grid>
+                    <Grid item>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <InputLabel>Number of Pokemon</InputLabel>
+                                <Select
+                                    value={numPokemon}
+                                    label="numPokemon"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>10</MenuItem>
+                                    <MenuItem value={20}>20</MenuItem>
+                                    <MenuItem value={30}>30</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
                     </Grid>
 
-                    <Grid container item xs={2} justifyContent="flex-end">
-                        <Grid item>
-                            <GameScore currentRound={gameState.length + 1 < gameLength ? gameState.length + 1 : gameLength} score={score}></GameScore>
-                        </Grid>
+                    <Grid item>
+                        <Link style={{ textDecoration: 'none' }}
+                            href={{
+                                pathname: `/pokemon-type-guesser/${rand_num}`,
+                                query: {
+                                    numPokemon: numPokemon
+                                }
+                            }}
+                            as={`/pokemon-type-guesser/${rand_num}`}>
+                            <Button variant="contained" color="primary"> Start Game </Button>
+                        </Link>
                     </Grid>
 
-                    <TypeGrid
-                        typeSelectedFunc={typeSelected}
-                        getTypeResultsStylesFunc={getTypeResultsStyles}
-                        selectedTypes={selectedTypes}
-                        currentPokemon={activePokemon}
-                        gameMode={gameMode}
-                        setStateFunc={setSelectedTypes}>
-                    </TypeGrid>
-
-                    <Grid container item sx={{ mt: '30px' }} xs={8} justifyContent="flex-end">
-                        {gameMode == "play"
-                            ? <Button variant="contained" color="info" size={'medium'} onClick={() => submitAnswers()}>Submit</Button>
-                            : <Button variant="contained" color="primary" style={{ pointerEvents: `${gameMode == "end" ? "none" : null}` }} onClick={() => { initNewRound() }}>Next Round</Button>
-                        }
-                    </Grid>
 
                 </Grid>
-            </Container>
-        </>
+            </Grid>
+        </Container>
     )
 }
 
-export default PokemonTypeGuesser;
+export default PokemonTypeGuesserLanding
