@@ -1,11 +1,14 @@
 import Image from 'next/image'
 import styles from './MiniTypeCard.module.css'
 
-const MiniTypeCard = ({ type, primaryColor, w, h }) => {
+import { typeData } from "../../utils/typeData.js"
 
-    // const test = typeData[0].name
+const MiniTypeCard = ({ type }) => {
+
+    const typeStyles = typeData.find(element => type == element.name)
+
     return (
-        <div className={styles.typeImgContainer} style={{ backgroundColor: `${primaryColor}` }}>
+        <div className={styles.typeImgContainer} style={{ backgroundColor: `${typeStyles.primaryColor}` }}>
             <Image width={25} height={25} className={styles.typeImg} src={`/type-icons/${type}.svg`} alt={`Type: ${type}`} />
         </div>
 
