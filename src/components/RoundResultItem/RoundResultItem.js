@@ -8,11 +8,23 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const RoundResultItem = ({ pokemon, selectedTypes }) => {
 
+
+    const checkAnswer = (pokemonType, selectedTypes) => {
+        if (selectedTypes) {
+            return selectedTypes.includes(pokemonType)
+        }
+
+        return false
+
+    }
+
     const points = 1;
 
     return (
         <Grid container justifyContent="space-between" className={styles.container} style={{
-            width: "250px"
+            width: "250px",
+            userSelect: "none",
+            webkitUserDrag: "none"
         }}>
             {/* */}
             <Grid item container xs={4} style={{
@@ -21,7 +33,8 @@ const RoundResultItem = ({ pokemon, selectedTypes }) => {
 
             }}>
                 <Image width={90} height={90} src={pokemon.sprite} alt={`Pokemon Name: ${pokemon.name}`} style={{
-                    paddingBottom: "5px"
+                    paddingBottom: "5px",
+                    webkitUserDrag: "none"
                 }} />
             </Grid>
 
@@ -35,7 +48,10 @@ const RoundResultItem = ({ pokemon, selectedTypes }) => {
 
                 <Grid item style={{ textAlign: "center" }}>
                     <MiniTypeCard type={pokemon.primaryType}></MiniTypeCard>
-                    <CheckIcon style={{ color: "green", margin: "auto" }}></CheckIcon>
+                    {checkAnswer(pokemon.primaryType, selectedTypes)
+                        ? <CheckIcon style={{ color: "green", margin: "auto" }}></CheckIcon>
+                        : <CloseIcon style={{ color: "red", margin: "auto" }}></CloseIcon>}
+
 
                 </Grid>
 
@@ -43,7 +59,9 @@ const RoundResultItem = ({ pokemon, selectedTypes }) => {
                     {pokemon.secondaryType ?
                         <>
                             <MiniTypeCard type={pokemon.secondaryType}></MiniTypeCard>
-                            <CloseIcon style={{ color: "red", margin: "auto" }}></CloseIcon>
+                            {checkAnswer(pokemon.secondaryType, selectedTypes)
+                                ? <CheckIcon style={{ color: "green", margin: "auto" }}></CheckIcon>
+                                : <CloseIcon style={{ color: "red", margin: "auto" }}></CloseIcon>}
                         </>
                         : null}
 
@@ -63,7 +81,10 @@ const RoundResultItem = ({ pokemon, selectedTypes }) => {
                     alignItems: "center"
 
                 }}>
-                    <h3 style={{ margin: "5px 0px 0px 0px" }} className={styles.text}>{`+${points}`}</h3>
+                    <h3 style={{
+                        margin: "5px 0px 0px 0px"
+                    }} className={styles.text}>{`+${points}`}</h3>
+
                     <ArrowDropDownIcon fontSize="large"></ArrowDropDownIcon>
                 </Grid>
             </Grid>

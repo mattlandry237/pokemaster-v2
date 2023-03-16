@@ -18,7 +18,7 @@ const PokemonTypeGuesserLanding = () => {
         setNumPokemon(event.target.value);
     };
 
-    const rand_num = Math.floor(Math.random() * 2000) + 1
+    const gameID = Math.floor(Math.random() * 2000) + 1
 
     return (
         <Container maxWidth="xl" >
@@ -40,6 +40,7 @@ const PokemonTypeGuesserLanding = () => {
                                     label="numPokemon"
                                     onChange={handleChange}
                                 >
+                                    <MenuItem value={2}>2</MenuItem>
                                     <MenuItem value={10}>10</MenuItem>
                                     <MenuItem value={20}>20</MenuItem>
                                     <MenuItem value={30}>30</MenuItem>
@@ -51,12 +52,12 @@ const PokemonTypeGuesserLanding = () => {
                     <Grid item>
                         <Link style={{ textDecoration: 'none' }}
                             href={{
-                                pathname: `/pokemon-type-guesser/${rand_num}`,
+                                pathname: `/pokemon-type-guesser/${gameID}`,
                                 query: {
                                     numPokemon: numPokemon
                                 }
                             }}
-                            as={`/pokemon-type-guesser/${rand_num}`}>
+                            as={`/pokemon-type-guesser/${gameID}`}>
                             <Button variant="contained" color="primary"> Start Game </Button>
                         </Link>
                     </Grid>

@@ -1,5 +1,6 @@
 import RoundResultItem from "../components/RoundResultItem";
 import Grid from "@mui/material/Grid"
+import Carousel from "../components/Carousel";
 
 import { getPokemon } from "../utils/helpers.js"
 
@@ -18,25 +19,80 @@ export async function getServerSideProps() {
 
 
 const MiniTypeCardTest = ({ pokemon1, pokemon2 }) => {
+
+    const poke = [
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+        {
+            pokemon: {
+                primaryType: "water",
+                secondaryType: "rock",
+                sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/369.png"
+            }
+        },
+    ]
+
+
     return (
-        <Grid container justifyContent="center" columnSpacing={2} rowSpacing={3} style={{ backgroundColor: "#5F82AD" }}>
-            {/* {typeData.map(({ name }) =>
-                <Grid item>
-                    <MiniTypeCard type={name} ></MiniTypeCard>
+        <>
+            <Grid container justifyContent="center" columnSpacing={2} rowSpacing={3}>
+                <Grid item container justifyContent="center">
+                    <RoundResultItem pokemon={pokemon1}></RoundResultItem>
+
+
                 </Grid>
-            )} */}
+                <Grid item container justifyContent="center">
+                    <RoundResultItem pokemon={pokemon2}></RoundResultItem>
+                </Grid>
 
-            <Grid item container justifyContent="center">
-                <RoundResultItem pokemon={pokemon1}></RoundResultItem>
+                <Grid item>
 
-
+                    <div style={{ width: "500px" }}>
+                        <Carousel items={poke}></Carousel>
+                    </div>
+                </Grid>
             </Grid>
-            <Grid item container justifyContent="center">
-                <RoundResultItem pokemon={pokemon2}></RoundResultItem>
-
-
-            </Grid>
-        </Grid>
+        </>
 
 
     )

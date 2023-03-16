@@ -3,6 +3,7 @@ import Container from "@mui/material/Container"
 import HomeIcon from '@mui/icons-material/Home'
 import Grid from "@mui/material/Grid"
 import Image from "next/image"
+import Link from "next/link"
 import GameScore from "../../../components/GameScore"
 import Pokemon from "../../../components/Pokemon"
 import TypeGrid from '../../../components/TypeGrid'
@@ -36,6 +37,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
     const router = useRouter();
     const gameLength = router.query.numPokemon;
+    const gameID = router.query.gameID;
 
 
     const initNewRound = async () => {
@@ -48,17 +50,6 @@ const PokemonTypeGuesser = ({ pokemon }) => {
         } else {
             setGameMode("end")
         }
-    }
-
-    const endGame = (value) => {
-        router.push({
-            pathname: "/endgame-test",
-            query: {
-                results: JSON.stringify(value)
-            },
-            asPath: "/endgame-test/results/"
-        }, { shallow: true })
-
     }
 
     const submitAnswers = () => {
@@ -79,7 +70,17 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                         <h3>Click the button below to review your results</h3>
                     </Grid>
                     <Grid item>
-                        <Button variant="contained" color="primary" onClick={() => { endGame(gameState) }}>Review</Button>
+                        <Link style={{ textDecoration: 'none' }}
+                            href={{
+                                pathname: `${gameID}/results/`,
+                                query: {
+                                    results: JSON.stringify(gameState)
+                                }
+                            }}
+                            as={`${gameID}/results`}>
+                            <Button variant="contained" color="primary">Review</Button>
+                        </Link>
+
                     </Grid>
                 </Grid>
 
@@ -112,6 +113,7 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                             ? <Button variant="contained" color="info" size={'medium'} onClick={() => submitAnswers()}>Submit</Button>
                             : <Button variant="contained" color="primary" style={{ pointerEvents: `${gameMode == "end" ? "none" : null}` }} onClick={() => { initNewRound() }}>{(gameLength - (gameState.length + 1)) == 0 ? "Finish Game" : "Next Round"}</Button>
                         }
+
                     </Grid>
 
                 </Grid>
