@@ -41,8 +41,8 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
 
     const initNewRound = async () => {
+        setGameState([...gameState, { "pokemon": activePokemon, "selectedTypes": selectedTypes }])
         if (gameState.length + 1 < gameLength) {
-            setGameState([...gameState, { "pokemon": activePokemon, "selectedTypes": selectedTypes }])
             const newPokemon = await getPokemon()
             setActivePokemon(newPokemon)
             setSelectedTypes([])
@@ -74,7 +74,8 @@ const PokemonTypeGuesser = ({ pokemon }) => {
                             href={{
                                 pathname: `${gameID}/results/`,
                                 query: {
-                                    results: JSON.stringify(gameState)
+                                    results: JSON.stringify(gameState),
+                                    totalScore: score
                                 }
                             }}
                             as={`${gameID}/results`}>
