@@ -88,17 +88,22 @@ const PokemonTypeGuesser = ({ pokemon }) => {
 
                 <Grid container sx={{ mt: '40px' }} justifyContent="center">
 
-                    <Grid container item columnSpacing={6} xs={6}>
-                        <Grid item>
-                            <Pokemon pokemon={activePokemon} hidden={gameMode == "play"} />
-                        </Grid>
+                    <Grid container item xs={8}>
+
+                        <Pokemon
+                            pokemon={activePokemon}
+                            currentRound={gameState.length + 1 < gameLength ? gameState.length + 1 : gameLength}
+                            gameLength={gameLength}
+                            score={score}
+                            hidden={gameMode == "play"} />
+
                     </Grid>
 
-                    <Grid container item xs={2} justifyContent="flex-end">
+                    {/* <Grid container item xs={2} justifyContent="flex-end">
                         <Grid item>
                             <GameScore currentRound={gameState.length + 1 < gameLength ? gameState.length + 1 : gameLength} score={score}></GameScore>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
 
                     <TypeGrid
                         typeSelectedFunc={typeSelected}

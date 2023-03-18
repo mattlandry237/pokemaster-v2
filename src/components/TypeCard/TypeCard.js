@@ -9,10 +9,8 @@ const TypeCard = ({ type, primaryColor, secondaryColor, highlight, button }) => 
             <div className={styles.typeNameContainer} >
                 <h3 className={styles.typeNameText}>{type}</h3>
             </div>
-
         </div>
     )
 }
-
 
 export default TypeCard

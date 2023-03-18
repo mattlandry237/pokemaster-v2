@@ -1,18 +1,11 @@
-
 .typeImgContainer {
     position: relative;
-    max-width: 25px;
-    max-height: 25px;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
     border-radius: 50px;
     padding: 10px;
 }
 
-
-
-
-.typeImg { 
-    
+.typeImg {
     -webkit-user-drag: none;
 }
